@@ -1,0 +1,41 @@
+{
+  "name": "meanie-mongoose-set-properties",
+  "description": "A helper plugin for Mongoose to only set properties on a model that have changed, for use with Meanie Express Seed projects",
+  "version": "1.0.0",
+  "homepage": "https://github.com/meanie/mongoose-set-properties",
+  "author": {
+    "name": "Adam Buczynski",
+    "email": "me@adambuczynski.com",
+    "url": "http://adambuczynski.com/"
+  },
+  "contributors": [],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meanie/mongoose-set-properties"
+  },
+  "bugs": {
+    "url": "https://github.com/meanie/mongoose-set-properties/issues"
+  },
+  "keywords": [
+    "meanie",
+    "mongoose",
+    "helper"
+  ],
+  "engines": {
+    "node": ">=6.3.0",
+    "npm": ">=3.10.3"
+  },
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "postversion": "git push && git push --tags && npm publish"
+  },
+  "peerDependencies": {
+    "mongoose": "^4.5.4",
+    "meanie-mongoose-only-id": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.13.1"
+  }
+}
