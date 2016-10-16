@@ -110,6 +110,10 @@ function setObject(obj, data, parentPath) {
  * Note that for arrays, it assume primitive values
  */
 module.exports = function setProperties(schema) {
+
+  /**
+   * Method for all schema's
+   */
   schema.methods.setProperties = function(data) {
     setObject(this, data);
   };

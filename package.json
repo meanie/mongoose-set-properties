@@ -28,14 +28,14 @@
   },
   "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint . --fix",
     "postversion": "git push && git push --tags && npm publish"
   },
   "peerDependencies": {
-    "mongoose": "^4.5.4",
+    "mongoose": "^4.6.3",
     "meanie-mongoose-only-id": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^2.13.1"
+    "eslint": "^3.8.0"
   }
 }
