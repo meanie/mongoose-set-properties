@@ -86,6 +86,13 @@ function setObject(obj, data, parentPath) {
           continue;
         }
 
+        //If either the current value or the new value are undefined, it's safe
+        //to simply set the replacement value.
+        if (obj[key] === undefined || data[key] === undefined) {
+          obj[key] = data[key];
+          continue;
+        }
+
         //Check if the data is an object as well
         if (typeof data[key] !== 'object') {
           throw new Error(
