@@ -3,10 +3,10 @@
 /**
  * Dependencies
  */
-let onlyId = require('meanie-mongoose-only-id');
-let mongoose = require('mongoose');
-let Model = mongoose.Model;
-let ObjectId = mongoose.Types.ObjectId;
+const onlyId = require('meanie-mongoose-only-id');
+const mongoose = require('mongoose');
+const Model = mongoose.Model;
+const ObjectId = mongoose.Types.ObjectId;
 
 /**
  * Recursive handler of objects
@@ -14,7 +14,7 @@ let ObjectId = mongoose.Types.ObjectId;
 function setObject(obj, data, parentPath) {
 
   //Loop all the keys
-  for (let key in data) {
+  for (const key in data) {
     if (data.hasOwnProperty(key)) {
 
       //Determine path
@@ -36,8 +36,8 @@ function setObject(obj, data, parentPath) {
         }
 
         //Simplify the objects
-        let current = onlyId(obj[key]);
-        let updated = onlyId(data[key]);
+        const current = onlyId(obj[key]);
+        const updated = onlyId(data[key]);
 
         //Find items not present in the current array
         if (updated.some(x => current.indexOf(x) === -1)) {
@@ -59,7 +59,7 @@ function setObject(obj, data, parentPath) {
 
       //If it's an object ID, compare with helper
       else if (obj[key] instanceof ObjectId) {
-        let id = onlyId(data[key]);
+        const id = onlyId(data[key]);
         if (!obj[key].equals(id)) {
           obj[key] = data[key];
         }
@@ -71,8 +71,8 @@ function setObject(obj, data, parentPath) {
         //If one of the values is a full model instance, compare by ID's
         if ((obj[key] instanceof Model && obj[key]._id) ||
             (data[key] instanceof Model && data[key]._id)) {
-          let current = onlyId(obj[key]);
-          let updated = onlyId(data[key]);
+          const current = onlyId(obj[key]);
+          const updated = onlyId(data[key]);
           if (current !== updated) {
             obj[key] = updated;
           }
@@ -89,7 +89,8 @@ function setObject(obj, data, parentPath) {
         //Check if the data is an object as well
         if (typeof data[key] !== 'object') {
           throw new Error(
-            'Path `' + path + '` in data is expected to be an object`'
+            'Path `' + path + '` in data is expected to be an object.\n' +
+            'Got ' + data[key]
           );
         }
 
