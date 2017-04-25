@@ -1,7 +1,7 @@
 {
   "name": "meanie-mongoose-set-properties",
   "description": "A helper plugin for Mongoose to only set properties on a model that have changed, for use with Meanie Express Seed projects",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/meanie/mongoose-set-properties",
   "author": {
     "name": "Adam Reis",
