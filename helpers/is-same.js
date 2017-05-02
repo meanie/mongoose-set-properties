@@ -7,7 +7,6 @@ const onlyId = require('meanie-mongoose-only-id');
 const mongoose = require('mongoose');
 const Model = mongoose.Model;
 const ObjectId = mongoose.Types.ObjectId;
-const Embedded = mongoose.Types.Embedded;
 const normalize = require('./normalize');
 
 /**
@@ -66,10 +65,10 @@ module.exports = function isSame(v1, v2) {
     if (typeof v2 === 'object') {
 
       //Simplify to plain objects if embedded documents
-      if (v1 instanceof Embedded) {
+      if (typeof v1.toObject === 'function') {
         v1 = v1.toObject();
       }
-      if (v2 instanceof Embedded) {
+      if (typeof v2.toObject === 'function') {
         v2 = v2.toObject();
       }
 
