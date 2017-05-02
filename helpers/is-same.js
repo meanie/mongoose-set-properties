@@ -7,11 +7,17 @@ const onlyId = require('meanie-mongoose-only-id');
 const mongoose = require('mongoose');
 const Model = mongoose.Model;
 const ObjectId = mongoose.Types.ObjectId;
+const Embedded = mongoose.Types.Embedded;
+const normalize = require('./normalize');
 
 /**
  * Helper to check if two values are the same
  */
 module.exports = function isSame(v1, v2) {
+
+  //Normalize values (mostly just converts moments to dates)
+  v1 = normalize(v1);
+  v2 = normalize(v2);
 
   //Arrays
   if (Array.isArray(v1)) {
@@ -28,6 +34,8 @@ module.exports = function isSame(v1, v2) {
   if (
     v1 === null ||
     v1 === undefined ||
+    v2 === null ||
+    v2 === undefined ||
     typeof v1 === 'string' ||
     typeof v1 === 'number' ||
     typeof v1 === 'boolean'
@@ -54,18 +62,34 @@ module.exports = function isSame(v1, v2) {
   }
 
   //Other objects
-  if (typeof v1 === 'object' && v1 !== null) {
-    if (typeof v2 === 'object' && v2 !== null) {
+  if (typeof v1 === 'object') {
+    if (typeof v2 === 'object') {
+
+      //Simplify to plain objects if embedded documents
+      if (v1 instanceof Embedded) {
+        v1 = v1.toObject();
+      }
+      if (v2 instanceof Embedded) {
+        v2 = v2.toObject();
+      }
+
+      //Check object keys
       const k1 = Object.keys(v1);
       const k2 = Object.keys(v2);
       if (!isSame(k1, k2)) {
         return false;
       }
+
+      //Check properties
       for (const k in v1) {
-        if (v1.hasOwnProperty(k) && !isSame(v1[k], v2[k])) {
-          return false;
+        if (v1.hasOwnProperty(k)) {
+          if (!isSame(v1[k], v2[k])) {
+            return false;
+          }
         }
       }
+
+      //Objects are the same
       return true;
     }
     return false;

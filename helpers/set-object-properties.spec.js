@@ -25,7 +25,20 @@ describe('setObjectProperties()', () => {
       object: {a: 1, b: 2},
       array1: ['a', 'b', 'c'],
       array2: [{a: 1}, {b: 2}],
+      array3: [
+        {
+          _id: new ObjectId('333bee3e4527879d33c7b31c'),
+          string: 'a',
+          object: {deep: 'a', nested: 2},
+        },
+        {
+          _id: new ObjectId('333bee3e4527879d33c7b31d'),
+          string: 'b',
+          object: {deep: 'b', nested: 4},
+        },
+      ],
     });
+    v1.unmarkModified('_id');
     v1.unmarkModified('string');
     v1.unmarkModified('number');
     v1.unmarkModified('boolean');
@@ -34,6 +47,7 @@ describe('setObjectProperties()', () => {
     v1.unmarkModified('object');
     v1.unmarkModified('array1');
     v1.unmarkModified('array2');
+    v1.unmarkModified('array3');
   });
 
   //Simple changes
@@ -78,6 +92,30 @@ describe('setObjectProperties()', () => {
   };
   const array2None = {
     array2: [{a: 1}, {b: 2}],
+  };
+
+  //Single simple change but with all other properties
+  const onlySimple = {
+    string: 'b',
+    number: 1,
+    boolean: true,
+    date: new Date(123),
+    objectId: new ObjectId('333bee3e4527879d33c7b31b'),
+    object: {a: 1, b: 2},
+    array1: ['a', 'b', 'c'],
+    array2: [{a: 1}, {b: 2}],
+    array3: [
+      {
+        _id: new ObjectId('333bee3e4527879d33c7b31c'),
+        string: 'a',
+        object: {deep: 'a', nested: 2},
+      },
+      {
+        _id: new ObjectId('333bee3e4527879d33c7b31d'),
+        string: 'b',
+        object: {deep: 'b', nested: 4},
+      },
+    ],
   };
 
   it('should set changed simple properties', () => {
@@ -167,5 +205,25 @@ describe('setObjectProperties()', () => {
     expect(v1.array2[0].a).to.equal(1);
     expect(v1.array2[1].b).to.equal(2);
     expect(v1.isModified('array2')).to.be.false();
+  });
+
+  it('should only set changed properties even if other props passed', () => {
+    v1.setProperties(onlySimple);
+    expect(v1.isModified('string')).to.be.true();
+    expect(v1.isModified('array3')).to.be.false();
+    expect(v1.modifiedPaths()).to.have.lengthOf(1);
+  });
+
+  it('should not mark as changed if passing itself', () => {
+    v1.setProperties(v1);
+    expect(v1.modifiedPaths()).to.have.lengthOf(0);
+  });
+
+  it('should not mark as changed if passing unchanged embedded doc', () => {
+    v1.setProperties({
+      string: 'a',
+      array3: v1.array3,
+    });
+    expect(v1.modifiedPaths()).to.have.lengthOf(0);
   });
 });

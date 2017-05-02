@@ -3,6 +3,8 @@
 /**
  * Dependencies
  */
+const mongoose = require('mongoose');
+const Model = mongoose.Model;
 const isSame = require('./is-same');
 const isSimpleObject = require('./is-simple-object');
 const normalize = require('./normalize');
@@ -11,6 +13,11 @@ const normalize = require('./normalize');
  * Recursive handler of objects
  */
 module.exports = function setObjectProperties(obj, data, parentPath) {
+
+  //If model given as data, convert to object
+  if (data instanceof Model) {
+    data = data.toObject();
+  }
 
   //Loop all the keys
   for (const key in data) {

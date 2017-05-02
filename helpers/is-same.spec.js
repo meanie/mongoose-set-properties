@@ -257,8 +257,10 @@ describe('isSame()', () => {
    ***/
 
   it('should match arrays with the same values', () => {
-    const v1 = [1, 'a', true, null, {a: 2}];
-    const v2 = ['a', true, 1, {a: 2}, null];
+    const o1 = new ObjectId('333bee3e4527879d33c7b31b');
+    const o2 = new ObjectId('333bee3e4527879d33c7b31b');
+    const v1 = [1, 'a', true, null, {_id: o1, a: 2, b: {c: 4}}];
+    const v2 = ['a', true, 1, {_id: o2, a: 2, b: {c: 4}}, null];
     expect(isSame(v1, v2)).to.be.true();
   });
 

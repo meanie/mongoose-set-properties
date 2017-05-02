@@ -20,6 +20,21 @@ global.expect = chai.expect;
 //Add plugin
 mongoose.plugin(require('../../index'));
 
+//Test sub-sub schema
+const subSubSchema = new Schema({
+  deep: String,
+  nested: Number,
+}, {
+  _id: false,
+});
+
+//Test sub schema
+const subSchema = new Schema({
+  _id: Schema.Types.ObjectId,
+  string: String,
+  object: subSubSchema,
+});
+
 //Test schema
 mongoose.model('Test', new Schema({
   string: String,
@@ -30,4 +45,5 @@ mongoose.model('Test', new Schema({
   object: {},
   array1: [String],
   array2: [{}],
+  array3: [subSchema],
 }));
