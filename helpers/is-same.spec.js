@@ -216,18 +216,21 @@ describe('isSame()', () => {
     const v1 = {a: 1, b: 't', c: true, d: undefined, e: null};
     const v2 = {e: null, a: 1, c: true, b: 't', d: undefined};
     expect(isSame(v1, v2)).to.be.true();
+    expect(isSame(v2, v1)).to.be.true();
   });
 
   it('should mismatch objects with missing properties', () => {
     const v1 = {a: 1, b: 't', c: true, d: undefined, e: null};
     const v2 = {a: 1, b: 't', c: true, e: null};
     expect(isSame(v1, v2)).to.be.false();
+    expect(isSame(v2, v1)).to.be.false();
   });
 
   it('should mismatch objects with additional properties', () => {
     const v1 = {a: 1, b: 't', c: true, d: undefined, e: null};
     const v2 = {a: 1, b: 't', c: true, d: undefined, e: null, f: 2};
     expect(isSame(v1, v2)).to.be.false();
+    expect(isSame(v2, v1)).to.be.false();
   });
 
   it('should mismatch objects with different values', () => {
@@ -236,20 +239,32 @@ describe('isSame()', () => {
     const v3 = {a: 1, b: 't', c: true, d: null, e: null};
     const v4 = {a: 1, b: 't', c: true, d: undefined, e: 0};
     expect(isSame(v1, v2)).to.be.false();
+    expect(isSame(v2, v1)).to.be.false();
     expect(isSame(v1, v3)).to.be.false();
+    expect(isSame(v3, v1)).to.be.false();
     expect(isSame(v1, v4)).to.be.false();
+    expect(isSame(v4, v1)).to.be.false();
   });
 
   it('should match objects with the same properties recursively', () => {
     const v1 = {a: 1, b: {c: true, d: 't'}};
     const v2 = {a: 1, b: {c: true, d: 't'}};
     expect(isSame(v1, v2)).to.be.true();
+    expect(isSame(v2, v1)).to.be.true();
   });
 
   it('should mismatch objects with different properties recursively', () => {
     const v1 = {a: 1, b: {c: true, d: 't'}};
     const v2 = {a: 1, b: {c: false, d: 't'}};
     expect(isSame(v1, v2)).to.be.false();
+    expect(isSame(v2, v1)).to.be.false();
+  });
+
+  it('should mismatch objects with other data', () => {
+    const v1 = {a: 1, b: 't', c: true, d: undefined, e: null};
+    const v2 = 'test';
+    expect(isSame(v1, v2)).to.be.false();
+    expect(isSame(v2, v1)).to.be.false();
   });
 
   /**************************************************************************
@@ -262,30 +277,35 @@ describe('isSame()', () => {
     const v1 = [1, 'a', true, null, {_id: o1, a: 2, b: {c: 4}}];
     const v2 = ['a', true, 1, {_id: o2, a: 2, b: {c: 4}}, null];
     expect(isSame(v1, v2)).to.be.true();
+    expect(isSame(v2, v1)).to.be.true();
   });
 
   it('should not match arrays with missing values', () => {
     const v1 = [1, 'a', true, null, {a: 2}];
     const v2 = [1, 'a', true, {a: 2}];
     expect(isSame(v1, v2)).to.be.false();
+    expect(isSame(v2, v1)).to.be.false();
   });
 
   it('should not match arrays with additional values', () => {
     const v1 = [1, 'a', true, null, {a: 2}];
     const v2 = [1, 'a', true, null, {a: 2}, 3];
     expect(isSame(v1, v2)).to.be.false();
+    expect(isSame(v2, v1)).to.be.false();
   });
 
   it('should not match arrays with different values', () => {
     const v1 = [1, 'a', true, null, {a: 2}];
     const v2 = [2, 'a', true, null, {a: 2}];
     expect(isSame(v1, v2)).to.be.false();
+    expect(isSame(v2, v1)).to.be.false();
   });
 
   it('should not match arrays with different values in objects', () => {
     const v1 = [1, 'a', true, null, {a: 2}];
     const v2 = [1, 'a', true, null, {a: 3}];
     expect(isSame(v1, v2)).to.be.false();
+    expect(isSame(v2, v1)).to.be.false();
   });
 
   it('should not match arrays with other things', () => {
@@ -293,31 +313,37 @@ describe('isSame()', () => {
     const v2 = 2;
     const v3 = {a: 2};
     expect(isSame(v1, v2)).to.be.false();
+    expect(isSame(v2, v1)).to.be.false();
     expect(isSame(v1, v3)).to.be.false();
+    expect(isSame(v3, v1)).to.be.false();
   });
 
   it('should match arrays with the same values recursively', () => {
     const v1 = [1, 'a', [2, 'b']];
     const v2 = [1, 'a', [2, 'b']];
     expect(isSame(v1, v2)).to.be.true();
+    expect(isSame(v2, v1)).to.be.true();
   });
 
   it('should not match arrays with different values recursively', () => {
     const v1 = [1, 'a', [2, 'b']];
     const v2 = [1, 'a', [3, 'b']];
     expect(isSame(v1, v2)).to.be.false();
+    expect(isSame(v2, v1)).to.be.false();
   });
 
   it('should match arrays with the same values repeating', () => {
     const v1 = ['a', '', '', ''];
     const v2 = ['', '', 'a', ''];
     expect(isSame(v1, v2)).to.be.true();
+    expect(isSame(v2, v1)).to.be.true();
   });
 
   it('should not match arrays with some same values repeating', () => {
-    const v1 = ['a', '', '', ''];
-    const v2 = ['', '', '', ''];
+    const v1 = ['a', 'b', 'b', 'b'];
+    const v2 = ['b', 'b', 'b', 'b'];
     expect(isSame(v1, v2)).to.be.false();
+    expect(isSame(v2, v1)).to.be.false();
   });
 
   /**************************************************************************

@@ -21,10 +21,25 @@ module.exports = function isSame(v1, v2) {
   //Arrays
   if (Array.isArray(v1)) {
     if (Array.isArray(v2)) {
+
+      //Check length matches
       if (v1.length !== v2.length) {
         return false;
       }
-      return v1.every(item1 => v2.some(item2 => isSame(item1, item2)));
+
+      //Keep track of indices of items that were compared
+      const indices = new Set();
+      return v1.every(item1 => {
+        return v2.some((item2, index) => {
+
+          //If index already matched another item, don't match again
+          if (!indices.has(index) && isSame(item1, item2)) {
+            indices.add(index);
+            return true;
+          }
+          return false;
+        });
+      });
     }
     return false;
   }
@@ -81,6 +96,7 @@ module.exports = function isSame(v1, v2) {
 
       //Check properties
       for (const k in v1) {
+        /* istanbul ignore else */
         if (v1.hasOwnProperty(k)) {
           if (!isSame(v1[k], v2[k])) {
             return false;
