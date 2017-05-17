@@ -308,6 +308,18 @@ describe('isSame()', () => {
     expect(isSame(v1, v2)).to.be.false();
   });
 
+  it('should match arrays with the same values repeating', () => {
+    const v1 = ['a', '', '', ''];
+    const v2 = ['', '', 'a', ''];
+    expect(isSame(v1, v2)).to.be.true();
+  });
+
+  it('should not match arrays with some same values repeating', () => {
+    const v1 = ['a', '', '', ''];
+    const v2 = ['', '', '', ''];
+    expect(isSame(v1, v2)).to.be.false();
+  });
+
   /**************************************************************************
    * Other data
    ***/
