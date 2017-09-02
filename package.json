@@ -1,15 +1,18 @@
 {
-  "name": "meanie-mongoose-set-properties",
-  "description": "A helper plugin for Mongoose to only set properties on a model that have changed, for use with Meanie Express Seed projects",
-  "version": "2.0.4",
+  "name": "@meanie/mongoose-set-properties",
+  "description": "A plugin for Mongoose to deep check and only set properties on a model that have changed",
+  "version": "2.0.5",
   "homepage": "https://github.com/meanie/mongoose-set-properties",
   "author": {
     "name": "Adam Reis",
     "email": "adam@reis.nz",
-    "url": "http://adam.reis.nz/"
+    "url": "https://adam.reis.nz/"
   },
   "contributors": [],
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/meanie/mongoose-set-properties"
@@ -20,35 +23,38 @@
   "keywords": [
     "meanie",
     "mongoose",
+    "properties",
+    "changes",
+    "deep",
+    "check",
     "helper"
   ],
   "engines": {
-    "node": ">=6.3.0",
-    "npm": ">=3.10.3"
+    "node": ">=8"
   },
   "main": "index.js",
   "scripts": {
     "postversion": "git push && git push --tags && npm publish",
-    "istanbul": "babel-node ./node_modules/istanbul/lib/cli cover ./node_modules/mocha/bin/_mocha \"helpers/*.spec.js\"",
-    "test": "npm run istanbul -s",
+    "mocha": "mocha 'helpers/*.spec.js'",
+    "test": "nyc --reporter=lcov --reporter=text yarn mocha",
     "coverage": "open -a \"Google Chrome\" ./coverage/lcov-report/index.html",
     "posttest": "npm run coverage -s"
   },
   "peerDependencies": {
-    "mongoose": "^4.9.6",
-    "meanie-mongoose-only-id": "^1.0.0"
+    "@meanie/mongoose-only-id": "^2.0.0",
+    "mongoose": "^4.11.9"
   },
   "devDependencies": {
-    "babel-cli": "^6.23.0",
+    "@meanie/mongoose-only-id": "^2.0.0",
+    "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.22.0",
-    "chai": "^3.5.0",
-    "chai-as-promised": "^6.0.0",
-    "dirty-chai": "^1.2.2",
-    "istanbul": "^1.0.0-alpha.2",
-    "mongoose": "^4.6.3",
-    "meanie-mongoose-only-id": "^1.0.0",
-    "mocha": "^3.2.0",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "dirty-chai": "^2.0.1",
+    "mongoose": "^4.11.9",
+    "mocha": "^3.5.0",
     "mocha-clean": "^1.0.0",
-    "moment": "^2.17.1"
+    "moment": "^2.17.1",
+    "nyc": "^11.0.3"
   }
 }

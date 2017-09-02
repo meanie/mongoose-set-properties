@@ -3,7 +3,7 @@
 /**
  * Dependencies
  */
-const onlyId = require('meanie-mongoose-only-id');
+const onlyId = require('@meanie/mongoose-only-id');
 const mongoose = require('mongoose');
 const Model = mongoose.Model;
 const ObjectId = mongoose.Types.ObjectId;
