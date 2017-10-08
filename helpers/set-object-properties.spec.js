@@ -76,6 +76,9 @@ describe('setObjectProperties()', () => {
   const deepError = {
     object: 2,
   };
+  const deepNull = {
+    object: null,
+  };
 
   //Array changes
   const array1 = {
@@ -158,6 +161,12 @@ describe('setObjectProperties()', () => {
     expect(v1.object.a).to.equal(1);
     expect(v1.object.b).to.equal(2);
     expect(v1.isModified('object')).to.be.false();
+  });
+
+  it('should set a deep object property to null', () => {
+    v1.setProperties(deepNull);
+    expect(v1.object).to.be.null();
+    expect(v1.isModified('object')).to.be.true();
   });
 
   it('should throw an error on invalid object data', () => {
