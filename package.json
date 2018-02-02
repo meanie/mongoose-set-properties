@@ -42,7 +42,7 @@
   },
   "peerDependencies": {
     "@meanie/mongoose-only-id": "^2.0.0",
-    "mongoose": "^4.11.9"
+    "mongoose": "^4.11.9 || ^5.0.3"
   },
   "devDependencies": {
     "@meanie/mongoose-only-id": "^2.0.0",
@@ -51,7 +51,7 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "dirty-chai": "^2.0.1",
-    "mongoose": "^4.11.9",
+    "mongoose": "^5.0.3",
     "mocha": "^3.5.0",
     "mocha-clean": "^1.0.0",
     "moment": "^2.17.1",
