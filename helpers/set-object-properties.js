@@ -31,6 +31,11 @@ module.exports = function setObjectProperties(obj, data, parentPath) {
       //Simple objects
       if (isSimpleObject(obj[key])) {
 
+        //If undefined, ignore
+        if (typeof value === 'undefined') {
+          continue;
+        }
+
         //If null, set new value
         if (value === null) {
           obj[key] = value;
