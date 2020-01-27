@@ -1,7 +1,7 @@
 {
   "name": "@meanie/mongoose-set-properties",
   "description": "A plugin for Mongoose to deep check and only set properties on a model that have changed",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "homepage": "https://github.com/meanie/mongoose-set-properties",
   "author": {
     "name": "Adam Reis",
