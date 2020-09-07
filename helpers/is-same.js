@@ -5,8 +5,7 @@
  */
 const onlyId = require('@meanie/mongoose-only-id');
 const mongoose = require('mongoose');
-const Model = mongoose.Model;
-const ObjectId = mongoose.Types.ObjectId;
+const {Model, Types: {ObjectId}} = mongoose;
 const normalize = require('./normalize');
 
 /**
@@ -95,12 +94,9 @@ module.exports = function isSame(v1, v2) {
       }
 
       //Check properties
-      for (const k in v1) {
-        /* istanbul ignore else */
-        if (v1.hasOwnProperty(k)) {
-          if (!isSame(v1[k], v2[k])) {
-            return false;
-          }
+      for (const k of k1) {
+        if (!isSame(v1[k], v2[k])) {
+          return false;
         }
       }
 
