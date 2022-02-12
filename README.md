@@ -4,10 +4,10 @@
 [![github issues](https://img.shields.io/github/issues/meanie/mongoose-set-properties.svg)](https://github.com/meanie/mongoose-set-properties/issues)
 [![codacy](https://img.shields.io/codacy/e178bf57ecbf469e97c1f03d44a8cca9.svg)](https://www.codacy.com/app/meanie/mongoose-set-properties)
 
+A plugin for Mongoose to deep check and only set properties on a model that have changed
+
 ## DEPRECATED
 This package is deprecated and no longer maintained
-
-A plugin for Mongoose to deep check and only set properties on a model that have changed
 
 ![Meanie](https://raw.githubusercontent.com/meanie/meanie/master/meanie-logo-full.png)
 
