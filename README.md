@@ -9,8 +9,6 @@ A plugin for Mongoose to deep check and only set properties on a model that have
 ## DEPRECATED
 This package is deprecated and no longer maintained
 
-![Meanie](https://raw.githubusercontent.com/meanie/meanie/master/meanie-logo-full.png)
-
 ## Installation
 
 You can install this package using `yarn` or `npm`.
