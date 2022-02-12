@@ -6,7 +6,7 @@
 
 A plugin for Mongoose to deep check and only set properties on a model that have changed
 
-## DEPRECATED
+## 🚨 DEPRECATED 🚨 
 This package is deprecated and no longer maintained
 
 ## Installation
