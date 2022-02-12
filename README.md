@@ -2,7 +2,6 @@
 
 [![npm version](https://img.shields.io/npm/v/@meanie/mongoose-set-properties.svg)](https://www.npmjs.com/package/@meanie/mongoose-set-properties)
 [![github issues](https://img.shields.io/github/issues/meanie/mongoose-set-properties.svg)](https://github.com/meanie/mongoose-set-properties/issues)
-[![codacy](https://img.shields.io/codacy/e178bf57ecbf469e97c1f03d44a8cca9.svg)](https://www.codacy.com/app/meanie/mongoose-set-properties)
 
 A plugin for Mongoose to deep check and only set properties on a model that have changed
 
